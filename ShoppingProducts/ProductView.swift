@@ -15,13 +15,16 @@ struct  ProductView: View {
         NavigationStack {
             VStack {
                 List(viewModel.products){ product in
-                    ProductRowView(product: product)
+                    NavigationLink(destination: ProductDetailView(product: product)) {
+                        ProductRowView(product: product)
+                    }
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("Products")
-            .task {
-                await viewModel.fetchProducts()
-            }
+        }
+        .task {
+            await viewModel.fetchProducts()
         }
     }
 }
